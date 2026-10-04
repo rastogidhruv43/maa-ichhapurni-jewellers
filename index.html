@@ -546,34 +546,138 @@
     </section>
 
     <!-- Live Rates Section -->
-    <section id="rates" class="rates-section">
-  <h3>Live Gold & Silver Rates (GST Included)</h3>
-  
-  <div class="rate-card">
-    <label>Gold Rate (24K - 99.9% Pure):</label>
-    <input type="text" id="gold-24k" placeholder="Fetching live rate..." readonly>
-  </div>
+  <!-- Live Rates Section -->
+<section id="rates" class="rates-section">
+  <div class="rates-container">
+    <h2 class="rates-title">Live Gold & Silver Rates (GST Included)</h2>
+    <p class="rates-subtitle">Real-time Indian Bullion Market Rates</p>
 
-  <div class="rate-card">
-    <label>Gold Rate (22K - Standard Jewellery):</label>
-    <input type="text" id="gold-22k" placeholder="Fetching live rate..." readonly>
-  </div>
+    <!-- 24K Gold -->
+    <div class="rate-card">
+      <div class="rate-card-header">
+        <h3>GOLD 999 (24K)</h3>
+        <span class="purity-tag">99.9% Pure</span>
+      </div>
+      <div class="rate-card-body">
+        <input type="text" id="gold-24k" value="Fetching rate..." readonly>
+      </div>
+    </div>
 
-  <div class="rate-card">
-    <label>Gold Rate (18K - Standard Jewellery):</label>
-    <input type="text" id="gold-18k" placeholder="Fetching live rate..." readonly>
-  </div>
+    <!-- 22K Gold -->
+    <div class="rate-card">
+      <div class="rate-card-header">
+        <h3>GOLD 916 (22K)</h3>
+        <span class="purity-tag">Standard Jewellery</span>
+      </div>
+      <div class="rate-card-body">
+        <input type="text" id="gold-22k" value="Fetching rate..." readonly>
+      </div>
+    </div>
 
-  <div class="rate-card">
-    <label>Silver Rate (per 1 Kg):</label>
-    <input type="text" id="silver-rate" placeholder="Fetching live rate..." readonly>
-  </div>
+    <!-- 18K Gold -->
+    <div class="rate-card">
+      <div class="rate-card-header">
+        <h3>GOLD 750 (18K)</h3>
+        <span class="purity-tag">Lightweight / Diamond</span>
+      </div>
+      <div class="rate-card-body">
+        <input type="text" id="gold-18k" value="Fetching rate..." readonly>
+      </div>
+    </div>
 
-  <p id="rates-last-updated" style="font-size:0.85rem; color:#666; margin-top:10px;">Status: Loading...</p>
+    <!-- Silver -->
+    <div class="rate-card">
+      <div class="rate-card-header">
+        <h3>SILVER 999</h3>
+        <span class="purity-tag">Per 1 Kg</span>
+      </div>
+      <div class="rate-card-body">
+        <input type="text" id="silver-rate" value="Fetching rate..." readonly>
+      </div>
+    </div>
+
+    <p id="rates-last-updated" class="update-timestamp">Status: Loading market data...</p>
+  </div>
 </section>
 
+<!-- Beautiful Custom Card Styling -->
+<style>
+  .rates-section {
+    padding: 30px 15px;
+    background-color: #fdfbf7;
+  }
+  .rates-container {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+  }
+  .rates-title {
+    text-align: center;
+    color: #8b6b23;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+  .rates-subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+  }
+  .rate-card {
+    background: #ffffff;
+    border: 1px solid #e2d1a6;
+    border-left: 5px solid #d4af37;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .rate-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .rate-card-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #222;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .purity-tag {
+    background: #fff8e7;
+    color: #8b6b23;
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    border: 1px solid #e2d1a6;
+    font-weight: 600;
+  }
+  .rate-card-body input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #111;
+    outline: none;
+    padding: 0;
+  }
+  .update-timestamp {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 15px;
+  }
+</style>
+
+<!-- Live API Rate Fetcher Script -->
 <script>
-  const GOLD_API_KEY = "goldapi-fc4f2f93849cd6354eb02f31c3d6f798-io"; // Apni GoldAPI Key yahan dalein
+  const GOLD_API_KEY = "goldapi-fc4f2f93849cd6354eb02f31c3d6f798-io"; // Yahan apni GoldAPI key daal dein
 
   async function updateLiveRates() {
     try {
@@ -591,37 +695,40 @@
         const goldData = await goldRes.json();
         const silverData = await silverRes.json();
 
-        // Base Prices per gram from API
         const base24kPerGram = goldData.price_gram_24k;
         const baseSilverPerGram = silverData.price_gram_24k;
 
-        // 1. Gold Rates Calculation for 10 Grams (with 3% GST)
-        const rate24k10g = (base24kPerGram * 1.03) * 10;
+        // Indian Market Custom Duty + Bullion Premium Adjustments
+        const INDIAN_GOLD_MULTIPLIER = 1.1463; 
+        const INDIAN_SILVER_MULTIPLIER = 1.1714; 
+
+        // Calculations (10g Gold & 1kg Silver with 3% GST)
+        const rate24k10g = (base24kPerGram * INDIAN_GOLD_MULTIPLIER * 1.03) * 10;
         const rate22k10g = rate24k10g * 0.916;
         const rate18k10g = rate24k10g * 0.75;
+        const rateSilver1Kg = (baseSilverPerGram * INDIAN_SILVER_MULTIPLIER * 1.03) * 1000;
 
-        // 2. Silver Rate Calculation for 1 Kg / 1000g (with 3% GST)
-        const rateSilver1Kg = (baseSilverPerGram * 1.03) * 1000;
-
-        // Display Rates on Screen
-        document.getElementById("gold-24k").value = "₹ " + rate24k10g.toFixed(2) + " / 10g (incl. 3% GST)";
-        document.getElementById("gold-22k").value = "₹ " + rate22k10g.toFixed(2) + " / 10g (incl. 3% GST)";
-        document.getElementById("gold-18k").value = "₹ " + rate18k10g.toFixed(2) + " / 10g (incl. 3% GST)";
-        document.getElementById("silver-rate").value = "₹ " + rateSilver1Kg.toFixed(2) + " / 1 kg (incl. 3% GST)";
+        // Displaying Formatted Values
+        document.getElementById("gold-24k").value = "₹ " + Math.round(rate24k10g).toLocaleString('en-IN') + " / 10g";
+        document.getElementById("gold-22k").value = "₹ " + Math.round(rate22k10g).toLocaleString('en-IN') + " / 10g";
+        document.getElementById("gold-18k").value = "₹ " + Math.round(rate18k10g).toLocaleString('en-IN') + " / 10g";
+        document.getElementById("silver-rate").value = "₹ " + Math.round(rateSilver1Kg).toLocaleString('en-IN') + " / 1 kg";
 
         const timeStr = new Date().toLocaleTimeString();
-        document.getElementById("rates-last-updated").textContent = "Last Updated: Today " + timeStr + " (Live Market Rates)";
+        document.getElementById("rates-last-updated").textContent = "Last Updated: Today " + timeStr + " (Indian Bullion Market)";
       }
     } catch (err) {
       console.error("Rates fetch error:", err);
-      document.getElementById("rates-last-updated").textContent = "Unable to fetch live rates. Please check connection.";
+      document.getElementById("rates-last-updated").textContent = "Unable to fetch live rates. Check internet connection.";
     }
   }
 
   updateLiveRates();
   setInterval(updateLiveRates, 600000); // 10 minute auto-refresh
 </script>
+   
 
+       
     <!-- Products Section -->
     <section id="products" class="alt">
         <div class="container">
