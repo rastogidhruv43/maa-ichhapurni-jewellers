@@ -547,36 +547,80 @@
 
     <!-- Live Rates Section -->
     <section id="rates" class="rates-section">
-        <div class="container">
-            <h2>Live Gold & Silver Rates</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Fill in the current market rates below:</p>
-            <div class="rates-container">
-                <div class="rate-card">
-                    <h3>🏅 Gold Rate (24K)</h3>
-                    <div class="rate-input-group">
-                        <label for="gold-rate">Rate per Gram</label>
-                        <input type="number" id="gold-rate" placeholder="Enter Gold Rate" step="0.01">
-                        <div class="currency">₹ per gram</div>
-                    </div>
-                    <div class="rate-update-time">
-                        <strong>Last Updated:</strong> <span id="gold-time">just now</span>
-                    </div>
-                </div>
+  <h3>Live Gold & Silver Rates (GST Included)</h3>
+  
+  <div class="rate-card">
+    <label>Gold Rate (24K - 99.9% Pure):</label>
+    <input type="text" id="gold-24k" placeholder="Fetching live rate..." readonly>
+  </div>
 
-                <div class="rate-card">
-                    <h3>⚪ Silver Rate</h3>
-                    <div class="rate-input-group">
-                        <label for="silver-rate">Rate per Gram</label>
-                        <input type="number" id="silver-rate" placeholder="Enter Silver Rate" step="0.01">
-                        <div class="currency">₹ per gram</div>
-                    </div>
-                    <div class="rate-update-time">
-                        <strong>Last Updated:</strong> <span id="silver-time">just now</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="rate-card">
+    <label>Gold Rate (22K - Standard Jewellery):</label>
+    <input type="text" id="gold-22k" placeholder="Fetching live rate..." readonly>
+  </div>
+
+  <div class="rate-card">
+    <label>Gold Rate (18K - Standard Jewellery):</label>
+    <input type="text" id="gold-18k" placeholder="Fetching live rate..." readonly>
+  </div>
+
+  <div class="rate-card">
+    <label>Silver Rate (per 1 Kg):</label>
+    <input type="text" id="silver-rate" placeholder="Fetching live rate..." readonly>
+  </div>
+
+  <p id="rates-last-updated" style="font-size:0.85rem; color:#666; margin-top:10px;">Status: Loading...</p>
+</section>
+
+<script>
+  const GOLD_API_KEY = "goldapi-fc4f2f93849cd6354eb02f31c3d6f798-io"; // Apni GoldAPI Key yahan dalein
+
+  async function updateLiveRates() {
+    try {
+      const goldRes = await fetch("https://www.goldapi.io/api/XAU/INR", {
+        method: 'GET',
+        headers: { "x-access-token": GOLD_API_KEY, "Content-Type": "application/json" }
+      });
+
+      const silverRes = await fetch("https://www.goldapi.io/api/XAG/INR", {
+        method: 'GET',
+        headers: { "x-access-token": GOLD_API_KEY, "Content-Type": "application/json" }
+      });
+
+      if (goldRes.ok && silverRes.ok) {
+        const goldData = await goldRes.json();
+        const silverData = await silverRes.json();
+
+        // Base Prices per gram from API
+        const base24kPerGram = goldData.price_gram_24k;
+        const baseSilverPerGram = silverData.price_gram_24k;
+
+        // 1. Gold Rates Calculation for 10 Grams (with 3% GST)
+        const rate24k10g = (base24kPerGram * 1.03) * 10;
+        const rate22k10g = rate24k10g * 0.916;
+        const rate18k10g = rate24k10g * 0.75;
+
+        // 2. Silver Rate Calculation for 1 Kg / 1000g (with 3% GST)
+        const rateSilver1Kg = (baseSilverPerGram * 1.03) * 1000;
+
+        // Display Rates on Screen
+        document.getElementById("gold-24k").value = "₹ " + rate24k10g.toFixed(2) + " / 10g (incl. 3% GST)";
+        document.getElementById("gold-22k").value = "₹ " + rate22k10g.toFixed(2) + " / 10g (incl. 3% GST)";
+        document.getElementById("gold-18k").value = "₹ " + rate18k10g.toFixed(2) + " / 10g (incl. 3% GST)";
+        document.getElementById("silver-rate").value = "₹ " + rateSilver1Kg.toFixed(2) + " / 1 kg (incl. 3% GST)";
+
+        const timeStr = new Date().toLocaleTimeString();
+        document.getElementById("rates-last-updated").textContent = "Last Updated: Today " + timeStr + " (Live Market Rates)";
+      }
+    } catch (err) {
+      console.error("Rates fetch error:", err);
+      document.getElementById("rates-last-updated").textContent = "Unable to fetch live rates. Please check connection.";
+    }
+  }
+
+  updateLiveRates();
+  setInterval(updateLiveRates, 600000); // 10 minute auto-refresh
+</script>
 
     <!-- Products Section -->
     <section id="products" class="alt">
