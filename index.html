@@ -858,18 +858,18 @@
             }
         });
 
-        // Save rates to localStorage when changed
-        goldRateInput.addEventListener('change', function() {
-            localStorage.setItem('goldRate', this.value);
-            localStorage.setItem('goldTime', new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
-            goldTimeSpan.textContent = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        });
+        // Save rates safely without errors
+if (typeof goldRateInput !== 'undefined' && goldRateInput) {
+  goldRateInput.addEventListener('change', function() {
+    localStorage.setItem('goldRate', this.value);
+  });
+}
 
-        silverRateInput.addEventListener('change', function() {
-            localStorage.setItem('silverRate', this.value);
-            localStorage.setItem('silverTime', new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
-            silverTimeSpan.textContent = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        });
+if (typeof silverRateInput !== 'undefined' && silverRateInput) {
+  silverRateInput.addEventListener('change', function() {
+    localStorage.setItem('silverRate', this.value);
+  });
+}
 
         // Form submission
         function handleSubmit(event) {
