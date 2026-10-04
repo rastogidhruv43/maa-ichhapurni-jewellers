@@ -550,7 +550,7 @@
 <section id="rates" class="rates-section">
   <div class="rates-container">
     <h2 class="rates-title">Live Gold & Silver Rates (GST Included)</h2>
-    <p class="rates-subtitle">Real-time Indian Bullion Market Rates</p>
+    <p class="rates-subtitle">Real time gold and silver rates </p>
 
     <!-- 24K Gold -->
     <div class="rate-card">
@@ -578,7 +578,7 @@
     <div class="rate-card">
       <div class="rate-card-header">
         <h3>GOLD 750 (18K)</h3>
-        <span class="purity-tag">Lightweight / Diamond</span>
+        <span class="purity-tag">Standard Jewellery</span>
       </div>
       <div class="rate-card-body">
         <input type="text" id="gold-18k" value="Fetching rate..." readonly>
@@ -715,7 +715,7 @@
         document.getElementById("silver-rate").value = "₹ " + Math.round(rateSilver1Kg).toLocaleString('en-IN') + " / 1 kg";
 
         const timeStr = new Date().toLocaleTimeString();
-        document.getElementById("rates-last-updated").textContent = "Last Updated: Today " + timeStr + " (Indian Bullion Market)";
+        document.getElementById("rates-last-updated").textContent = "Last Updated: Today " + timeStr + " (Maa Ichhapurni Jewellers)";
       }
     } catch (err) {
       console.error("Rates fetch error:", err);
