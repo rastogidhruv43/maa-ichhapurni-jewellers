@@ -530,7 +530,7 @@
             <div class="about-text">
                 <p><strong>Maa Ichhapurni Jewellers</strong> has been serving the people of Pihani, Hardoi with exceptional jewelry since <strong>1980</strong>.</p>
                 <p>With over 40 years of expertise and dedication, we've built a reputation for quality, authenticity, and fair pricing.</p>
-                <p>Located near <strong>Maa Ichhapurni Mandir</strong>, we are easily accessible and committed to serving our community with integrity.</p>
+                <p>"Located near <strong>Maa Ichhapurni Mandir</strong>, our store is easily accessible, bringing you timeless elegance with guaranteed purity". </p>
                 <p>Whether you're looking for traditional designs, modern styles, or custom creations, we have something perfect for everyone.</p>
                 <p>Our commitment to excellence, transparency, and customer satisfaction is what sets us apart.</p>
             </div>
@@ -552,7 +552,7 @@
             <p style="text-align: center; color: #666; margin-bottom: 2rem;">Fill in the current market rates below:</p>
             <div class="rates-container">
                 <div class="rate-card">
-                    <h3>🏅 Gold Rate (22K)</h3>
+                    <h3>🏅 Gold Rate (24K)</h3>
                     <div class="rate-input-group">
                         <label for="gold-rate">Rate per Gram</label>
                         <input type="number" id="gold-rate" placeholder="Enter Gold Rate" step="0.01">
@@ -586,12 +586,7 @@
                 <div class="product-card">
                     <div class="product-icon">💍</div>
                     <h3>Gold Jewelry</h3>
-                    <p>Exquisite 22K & 24K gold ornaments including rings, bangles, and necklaces.</p>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">💎</div>
-                    <h3>Diamond & Gemstone</h3>
-                    <p>Stunning certified diamond and gemstone pieces for special occasions.</p>
+                    <p>Exquisite 18K, 22K gold ornaments including rings, bangles, and necklaces.</p>
                 </div>
                 <div class="product-card">
                     <div class="product-icon">👑</div>
@@ -606,7 +601,7 @@
                 <div class="product-card">
                     <div class="product-icon">🎁</div>
                     <h3>Custom Designs</h3>
-                    <p>Personalized jewelry tailored to your preferences and requirements.</p>
+                    <p> Jewellery bought to life as per your unique designs and choices.</p>
                 </div>
                 <div class="product-card">
                     <div class="product-icon">⭐</div>
@@ -623,7 +618,7 @@
         <div class="contact-content">
             <div>
                 <h3>📧 Contact Form</h3>
-                <form onsubmit="handleSubmit(event)">
+              <form action="https://formspree.io/f/mbglnnjj" method="POST">
                     <div class="form-group">
                         <label for="name">Your Name</label>
                         <input type="text" id="name" name="name" required>
@@ -649,7 +644,7 @@
                     <p><strong>Maa Ichhapurni Jewellers</strong></p>
                     <p>Near Maa Ichhapurni Mandir</p>
                     <p>Pihani, Hardoi</p>
-                    <p>Uttar Pradesh 249403, India</p>
+                    <p>Uttar Pradesh 241406, India</p>
                 </div>
 
                 <h3>📞 Contact Information</h3>
@@ -659,16 +654,17 @@
 
                 <h3>🕐 Business Hours</h3>
                 <div class="address-box">
-                    <p><strong>Monday - Saturday:</strong><br>10:00 AM - 8:00 PM</p>
-                    <p><strong>Sunday:</strong><br>11:00 AM - 6:00 PM</p>
+                    <p><strong>Saturday - Thursday:</strong><br>10:00 AM - 7:30 PM</p>
+                    <p><strong>Friday:</strong><br>Closed</p>
                 </div>
 
                 <h3>💼 Our Services</h3>
                 <div class="address-box">
-                    <p>✓ Expert Jewelry Appraisal</p>
-                    <p>✓ Custom Design & Making</p>
+                    <p>✓ 100% BIS Hallmarked Jewellery</p>
+                    <p>✓ Custom Design & Personalised order</p>
                     <p>✓ Jewelry Repair & Maintenance</p>
                     <p>✓ Certified Authenticity</p>
+                    <p>✓ Purity testing & Gold Valuation</p>
                     <p>✓ Fair Pricing & Transparent Rates</p>
                 </div>
             </div>
@@ -677,9 +673,14 @@
 
     <!-- Footer -->
     <footer>
-        <p><strong>&copy; 2024 Maa Ichhapurni Jewellers</strong></p>
-        <p>Pihani, Hardoi | Trusted Since 1980</p>
+     <p>Pihani, Hardoi | Trusted Since 1980</p>
         <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.8;">Crafting Beauty, Creating Memories</p>
+        <p>© <span id="current-year"></span> Maa Ichhapurni Jewellers. All Rights Reserved.</p>
+
+<script>
+  document.getElementById("current-year").textContent = new Date().getFullYear();
+</script>
+       
     </footer>
 
     <script>
