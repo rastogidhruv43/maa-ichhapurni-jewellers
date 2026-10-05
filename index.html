@@ -715,7 +715,7 @@
 
       if (silverData.price) {
         // Multiplier: 1.1714 + 3% GST
-        const silver1kg = Math.round((silverData.price / 31.1035) * 1000 * 1.1714 * 1.03);
+        const silver1kg = Math.round((silverData.price / 31.1035) * 1000 * 1.158 * 1.03);
         localStorage.setItem('cached_silver', silver1kg);
       }
 
@@ -747,7 +747,16 @@
       if (elSilver) elSilver.value = '₹ ' + savedSilver.toLocaleString('en-IN') + ' / 1kg';
     }
   }
-
+const statusEl = document.getElementById('rates-last-updated');
+    if (statusEl) {
+      const lastFetch = localStorage.getItem('last_fetch_time');
+      if (lastFetch) {
+        const timeStr = new Date(parseInt(lastFetch)).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        statusEl.textContent = 'Rates Updated Today at ' + timeStr;
+      } else {
+        statusEl.textContent = 'Live Market Rates (GST Included)';
+      }
+    }
   fetchRates();
 </script>
        
