@@ -677,58 +677,79 @@
 </style>
 
 <!-- Live API Rate Fetcher Script -->
-<script>
-  const GOLD_API_KEY = "goldapi-fc4f2f93849cd6354eb02f31c3d6f798-io"; // Yahan apni GoldAPI key daal dein
 
-  async function updateLiveRates() {
+  <script>
+  // Rotated GoldAPI Key
+  const API_KEY = 'goldapi-52bffe713bdddd7424312931191c1544-io'; 
+  const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 Ghante
+
+  async function fetchRates() {
+    const lastFetch = localStorage.getItem('last_fetch_time');
+    const now = Date.now();
+
+    // 24 ghante ke andar cache se load hoga (0 API call)
+    if (lastFetch && (now - lastFetch < ONE_DAY_MS) && localStorage.getItem('cached_gold24')) {
+      loadFromCache();
+      return;
+    }
+
     try {
-      const goldRes = await fetch("https://www.goldapi.io/api/XAU/INR", {
-        method: 'GET',
-        headers: { "x-access-token": GOLD_API_KEY, "Content-Type": "application/json" }
+      // 1. Fetch Gold Rate
+      const goldRes = await fetch('https://www.goldapi.io/api/XAU/INR', {
+        headers: { 'x-access-token': API_KEY }
       });
+      if (goldRes.status === 403) throw new Error("403 API Limit or Invalid Key");
+      const goldData = await goldRes.json();
 
-      const silverRes = await fetch("https://www.goldapi.io/api/XAG/INR", {
-        method: 'GET',
-        headers: { "x-access-token": GOLD_API_KEY, "Content-Type": "application/json" }
-      });
-
-      if (goldRes.ok && silverRes.ok) {
-        const goldData = await goldRes.json();
-        const silverData = await silverRes.json();
-
-        const base24kPerGram = goldData.price_gram_24k;
-        const baseSilverPerGram = silverData.price_gram_24k;
-
-        // Indian Market Custom Duty + Bullion Premium Adjustments
-        const INDIAN_GOLD_MULTIPLIER = 1.1463; 
-        const INDIAN_SILVER_MULTIPLIER = 1.1714; 
-
-        // Calculations (10g Gold & 1kg Silver with 3% GST)
-        const rate24k10g = (base24kPerGram * INDIAN_GOLD_MULTIPLIER * 1.03) * 10;
-        const rate22k10g = rate24k10g * 0.916;
-        const rate18k10g = rate24k10g * 0.75;
-        const rateSilver1Kg = (baseSilverPerGram * INDIAN_SILVER_MULTIPLIER * 1.03) * 1000;
-
-        // Displaying Formatted Values
-        document.getElementById("gold-24k").value = "₹ " + Math.round(rate24k10g).toLocaleString('en-IN') + " / 10g";
-        document.getElementById("gold-22k").value = "₹ " + Math.round(rate22k10g).toLocaleString('en-IN') + " / 10g";
-        document.getElementById("gold-18k").value = "₹ " + Math.round(rate18k10g).toLocaleString('en-IN') + " / 10g";
-        document.getElementById("silver-rate").value = "₹ " + Math.round(rateSilver1Kg).toLocaleString('en-IN') + " / 1 kg";
-
-        const timeStr = new Date().toLocaleTimeString();
-        document.getElementById("rates-last-updated").textContent = "Last Updated: Today " + timeStr + " (Maa Ichhapurni Jewellers)";
+      if (goldData.price) {
+        // Multiplier: 1.1463 + 3% GST
+        const gold24k = Math.round((goldData.price / 31.1035) * 10 * 1.1463 * 1.03);
+        localStorage.setItem('cached_gold24', gold24k);
       }
+
+      // 2. Fetch Silver Rate
+      const silverRes = await fetch('https://www.goldapi.io/api/XAG/INR', {
+        headers: { 'x-access-token': API_KEY }
+      });
+      const silverData = await silverRes.json();
+
+      if (silverData.price) {
+        // Multiplier: 1.1714 + 3% GST
+        const silver1kg = Math.round((silverData.price / 31.1035) * 1000 * 1.1714 * 1.03);
+        localStorage.setItem('cached_silver', silver1kg);
+      }
+
+      localStorage.setItem('last_fetch_time', now);
+      loadFromCache();
+
     } catch (err) {
-      console.error("Rates fetch error:", err);
-      document.getElementById("rates-last-updated").textContent = "Unable to fetch live rates. Check internet connection.";
+      console.log('Error fetching rates, using cached data:', err);
+      loadFromCache();
     }
   }
 
-  updateLiveRates();
-  setInterval(updateLiveRates, 600000); // 10 minute auto-refresh
-</script>
-   
+  function loadFromCache() {
+    if (localStorage.getItem('cached_gold24')) {
+      const saved24 = parseInt(localStorage.getItem('cached_gold24'));
+      
+      const el24 = document.getElementById('gold-24k') || document.getElementById('gold24');
+      const el22 = document.getElementById('gold-22k') || document.getElementById('gold22');
+      const el18 = document.getElementById('gold-18k') || document.getElementById('gold18');
 
+      if (el24) el24.value = '₹ ' + saved24.toLocaleString('en-IN') + ' / 10g';
+      if (el22) el22.value = '₹ ' + Math.round(saved24 * (22 / 24)).toLocaleString('en-IN') + ' / 10g';
+      if (el18) el18.value = '₹ ' + Math.round(saved24 * (18 / 24)).toLocaleString('en-IN') + ' / 10g';
+    }
+    
+    if (localStorage.getItem('cached_silver')) {
+      const savedSilver = parseInt(localStorage.getItem('cached_silver'));
+      const elSilver = document.getElementById('silver-999') || document.getElementById('silver999');
+      if (elSilver) elSilver.value = '₹ ' + savedSilver.toLocaleString('en-IN') + ' / 1kg';
+    }
+  }
+
+  fetchRates();
+</script>
        
     <!-- Products Section -->
     <section id="products" class="alt">
