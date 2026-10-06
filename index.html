@@ -688,11 +688,10 @@
     const now = Date.now();
 
     // 24 ghante ke andar cache se load hoga (0 API call)
-    if (lastFetch && (now - lastFetch < ONE_DAY_MS) && localStorage.getItem('cached_gold24')) {
-      loadFromCache();
-      return;
-    }
-
+   if (lastFetch && (now - parseInt(lastFetch) < ONE_DAY_MS) && localStorage.getItem('cached_gold24') && localStorage.getItem('cached_silver')) {
+    loadFromCache();
+    return;
+}
     try {
       // 1. Fetch Gold Rate
       const goldRes = await fetch('https://www.goldapi.io/api/XAU/INR', {
