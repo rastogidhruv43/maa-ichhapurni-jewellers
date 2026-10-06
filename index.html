@@ -683,12 +683,15 @@
   const API_KEY = 'goldapi-7c42c0eae801a8b4a0a42053793fbfb9-io'; 
   const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 24 Ghante
 
-  async function fetchRates() {
-   const today = new Date().toISOString().split('T')[0];
-if (localStorage.getItem('last_fetch_date') === today && localStorage.getItem('cached_gold24') && localStorage.getItem('cached_silver')) {
-    loadFromCache();
-    return;
-}
+// ✅ ISNE REPLACE KAREIN:
+async function fetchRates() {
+    const today = new Date().toISOString().split('T')[0];
+    const lastFetchDate = localStorage.getItem('last_fetch_date');
+
+    if (lastFetchDate === today && localStorage.getItem('cached_gold24') && localStorage.getItem('cached_silver')) {
+        loadFromCache();
+        return;
+    }
     try {
       // 1. Fetch Gold Rate
       const goldRes = await fetch('https://www.goldapi.io/api/XAU/INR', {
