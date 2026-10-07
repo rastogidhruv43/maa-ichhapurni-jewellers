@@ -1,61 +1,54 @@
 const WORKER_URL = 'https://gold-api-proxy.rastogidhruv43.workers.dev';
+const REFRESH_MS = 30 * 60 * 1000;
+const MAX_AGE_MS = 25 * 60 * 60 * 1000;
 
-async function fetchRates() {
-    try {
-        const res = await fetch(WORKER_URL);
-        const data = await res.json();
+const fmt = n => '₹ ' + Math.round(n).toLocaleString('en-IN');
 
-        if (data.gold24k && data.silver999) {
-            const timeStr = "Today at " + new Date(data.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            // Purane HTML Input boxes aur Naye Spans dono ki IDs target kar rahe hain
-            const gold24El = document.getElementById('gold-rate') || document.getElementById('gold24-rate') || document.getElementById('gold-24k');
-            const gold22El = document.getElementById('gold22-rate') || document.getElementById('gold-22k');
-            const gold18El = document.getElementById('gold18-rate') || document.getElementById('gold-18k');
-            const silverEl = document.getElementById('silver-rate') || document.getElementById('silver-999');
-            
-            const timeEl = document.getElementById('gold-time') || document.getElementById('rates-last-updated') || document.getElementById('last-updated');
-            const silverTimeEl = document.getElementById('silver-time');
-
-            // Values Update Logic (Input box ho ya normal Text element, dono handle honge)
-            if (gold24El) {
-                const val = `₹ ${data.gold24k.toLocaleString('en-IN')} / 10g`;
-                if ('value' in gold24El) gold24El.value = val;
-                else gold24El.innerText = val;
-            }
-
-            if (gold22El) {
-                const val = `₹ ${data.gold22k.toLocaleString('en-IN')} / 10g`;
-                if ('value' in gold22El) gold22El.value = val;
-                else gold22El.innerText = val;
-            }
-
-            if (gold18El) {
-                const val = `₹ ${data.gold18k.toLocaleString('en-IN')} / 10g`;
-                if ('value' in gold18El) gold18El.value = val;
-                else gold18El.innerText = val;
-            }
-
-            if (silverEl) {
-                const val = `₹ ${data.silver999.toLocaleString('en-IN')} / 1kg`;
-                if ('value' in silverEl) silverEl.value = val;
-                else silverEl.innerText = val;
-            }
-
-            if (timeEl) {
-                const text = `Rates Updated ${timeStr}`;
-                if ('textContent' in timeEl) timeEl.textContent = text;
-                else timeEl.innerText = text;
-            }
-
-            if (silverTimeEl) {
-                silverTimeEl.textContent = `Rates Updated ${timeStr}`;
-            }
-        }
-    } catch (err) {
-        console.error("Fetch Error:", err);
-    }
+function setText(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
 }
 
-document.addEventListener("DOMContentLoaded", fetchRates);
+function fresh(d) {
+  const t = new Date(d && d.updatedAt).getTime();
+  return Number.isFinite(t) && (Date.now() - t) < MAX_AGE_MS &&
+    ['gold24k', 'gold22k', 'gold18k', 'silver999'].every(k => Number.isFinite(Number(d[k])));
+}
+
+function fmtTime(iso) {
+  return new Date(iso).toLocaleString('en-IN', {
+    day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata'
+  });
+}
+
+function render(d) {
+  setText('gold-24k', fmt(d.gold24k) + ' / 10g');
+  setText('gold-22k', fmt(d.gold22k) + ' / 10g');
+  setText('gold-18k', fmt(d.gold18k) + ' / 10g');
+  setText('silver-999', fmt(d.silver999) + ' / 1kg');
+  setText('rates-last-updated', 'Last updated: ' + fmtTime(d.updatedAt) + '. Indicative rates, please call to confirm.');
+}
+
+function showCall() {
+  ['gold-24k', 'gold-22k', 'gold-18k', 'silver-999'].forEach(id => setText(id, 'Call for rate'));
+  setText('rates-last-updated', "Today's rates are not updated yet. Please call 9415107000.");
+}
+
+async function fetchRates() {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 8000);
+  try {
+    const res = await fetch(WORKER_URL, { signal: ctrl.signal });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const d = await res.json();
+    if (fresh(d)) render(d); else showCall();
+  } catch (err) {
+    console.error('Rates error:', err);
+    showCall();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 fetchRates();
+setInterval(fetchRates, REFRESH_MS);
