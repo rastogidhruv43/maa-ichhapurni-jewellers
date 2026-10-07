@@ -36,7 +36,7 @@ function render(d) {
 
 function showCall() {
   ['gold-24k', 'gold-22k', 'gold-18k', 'silver-999'].forEach(id => setText(id, 'Call for rate'));
-  setText('rates-last-updated', 'Rates not available right now. Please call 9415107000.');
+  setText('rates-last-updated', 'Rates not available right now. Please message 9839056606.');
 }
 
 function loadSaved() {
