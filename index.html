@@ -1,846 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maa Ichhapurni Jewellers - Pihani, Hardoi | Since 1980</title>
-    <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f8f8;
-        }
-
-        /* Floating Call Button */
-        .floating-call {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #ff4444, #cc0000);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.8rem;
-            box-shadow: 0 6px 20px rgba(255, 68, 68, 0.4);
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-
-        .floating-call:hover {
-            transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 8px 25px rgba(255, 68, 68, 0.6);
-        }
-
-        /* Header & Navigation */
-        header {
-            background: linear-gradient(135deg, #d4af37 0%, #b8960f 100%);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header-contact {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .header-phone {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: white;
-            font-weight: bold;
-        }
-
-        .header-phone a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .header-phone a:hover {
-            opacity: 0.8;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s ease;
-        }
-
-        nav a:hover {
-            opacity: 0.8;
-        }
-
-        .call-button {
-            background: #ff4444;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(255, 68, 68, 0.3);
-        }
-
-        .call-button:hover {
-            background: #cc0000;
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(255, 68, 68, 0.5);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(212, 175, 55, 0.85), rgba(184, 150, 15, 0.85)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8f8f8" width="1200" height="600"/></svg>');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            opacity: 0.95;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #d4af37;
-            padding: 12px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        /* Sections */
-        section {
-            padding: 60px 20px;
-            background: white;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-
-        section.alt {
-            background: #f8f8f8;
-        }
-
-        h2 {
-            color: #d4af37;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            border-bottom: 3px solid #d4af37;
-            padding-bottom: 1rem;
-        }
-
-        h3 {
-            color: #b8960f;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .about-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-        }
-
-        .about-highlight {
-            background: linear-gradient(135deg, #d4af37, #b8960f);
-            color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .about-highlight p:first-child {
-            font-size: 2.5rem;
-        }
-
-        .about-highlight p:last-child {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        /* Rates Section */
-        .rates-section {
-            background: linear-gradient(135deg, #fff8f0 0%, #fef5ed 100%);
-            padding: 40px 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-            border-left: 5px solid #d4af37;
-        }
-
-        .rates-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .rate-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-top: 4px solid #d4af37;
-        }
-
-        .rate-card h3 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .rate-input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .rate-input-group label {
-            display: block;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-
-        .rate-input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #d4af37;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #b8960f;
-        }
-
-        .rate-input-group input::placeholder {
-            color: #ccc;
-        }
-
-        .rate-input-group .currency {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 3px;
-        }
-
-        .rate-update-time {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #999;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-        }
-
-        /* Products Section */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .product-card {
-            background: linear-gradient(135deg, #fff 0%, #f9f9f9 100%);
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-top: 4px solid #d4af37;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .product-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .product-card h3 {
-            color: #b8960f;
-            margin-bottom: 1rem;
-        }
-
-        /* Contact Section */
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .contact-info {
-            background: #f8f8f8;
-            padding: 2rem;
-            border-radius: 8px;
-            border-left: 5px solid #d4af37;
-        }
-
-        .contact-info h3 {
-            margin-top: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .contact-info p {
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .address-box {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 5px;
-            margin: 1rem 0;
-            border-left: 4px solid #d4af37;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            background: #d4af37;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background: #b8960f;
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-
-        footer p {
-            margin-bottom: 0.5rem;
-        }
-
-        .social-links {
-            margin-top: 1rem;
-            font-size: 1.2rem;
-            gap: 1rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav ul {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .about-content,
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            h2 {
-                font-size: 1.8rem;
-            }
-
-            .floating-call {
-                width: 55px;
-                height: 55px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 1.5rem;
-            }
-
-            .header-contact {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-
-            .call-button {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maa Ichhapurni Jewellers - Pihani, Hardoi | Since 1980</title>
+<meta name="description" content="BIS hallmarked gold and silver jewellery in Pihani, Hardoi since 1980. Daily gold and silver rates, custom designs, repair and purity testing. Call 9839056606.">
+<meta property="og:title" content="Maa Ichhapurni Jewellers - Pihani, Hardoi">
+<meta property="og:description" content="Trusted gold and silver jewellers in Pihani since 1980.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#8b6b23">
+<link rel="canonical" href="https://rastogidhruv43.github.io/maa-ichhapurni-jewellers/">
+<meta property="og:image" content="https://rastogidhruv43.github.io/maa-ichhapurni-jewellers/images/1.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"JewelryStore","name":"Maa Ichhapurni Jewellers","telephone":"+919839056606","foundingDate":"1980",
+"address":{"@type":"PostalAddress","streetAddress":"Near Maa Ichhapurni Mandir","addressLocality":"Pihani","addressRegion":"Uttar Pradesh","postalCode":"241406","addressCountry":"IN"},
+"openingHours":["Sa-Th 10:00-19:30"]}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:90px}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:#f8f8f8}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #222;outline-offset:2px}
+
+/* Floating buttons */
+.float-btn{position:fixed;right:25px;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-size:1.7rem;box-shadow:0 6px 20px rgba(0,0,0,.3);z-index:999;transition:transform .3s}
+.float-btn:hover{transform:scale(1.12)}
+.floating-call{bottom:25px;background:#c00000}
+.floating-wa{bottom:95px;background:#1a8f43}
+
+/* Header */
+header{background:linear-gradient(135deg,#d4af37,#b8960f);color:#2b1d00;padding:.8rem 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.header-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem}
+.logo{font-size:1.4rem;font-weight:bold;line-height:1.2}
+.logo small{font-size:.8rem;font-weight:600}
+nav ul{display:flex;list-style:none;gap:1.5rem;flex-wrap:wrap}
+nav a{color:#2b1d00;text-decoration:none;font-weight:600}
+nav a:hover{text-decoration:underline}
+.call-button{background:#c00000;color:#fff;padding:9px 20px;border-radius:25px;text-decoration:none;font-weight:bold;display:inline-flex;align-items:center;gap:8px}
+.call-button:hover{background:#900}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#8b6b23,#b8960f);color:#fff;padding:90px 20px;text-align:center}
+.hero h1{font-size:3.2rem;margin-bottom:.5rem;text-shadow:2px 2px 6px rgba(0,0,0,.4)}
+.hero p{font-size:1.2rem;margin-bottom:.8rem}
+.cta-buttons{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:1.5rem}
+.cta-button{background:#fff;color:#6b4f10;padding:12px 28px;text-decoration:none;border-radius:5px;font-weight:bold}
+.cta-button:hover{box-shadow:0 5px 15px rgba(0,0,0,.3)}
+
+/* Sections (specificity-safe: padding set on section.block, not .container) */
+section.block{padding:60px 20px;background:#fff;margin:20px auto;border-radius:8px;max-width:1200px}
+section.alt{background:#f8f8f8}
+h2{color:#8b6b23;font-size:2.3rem;margin-bottom:1.8rem;text-align:center;border-bottom:3px solid #d4af37;padding-bottom:.8rem}
+h3{color:#8b6b23;margin-bottom:.8rem;font-size:1.25rem}
+
+/* About */
+.about-content{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.about-text p{margin-bottom:1rem;font-size:1.05rem;line-height:1.8}
+.about-highlight{background:linear-gradient(135deg,#8b6b23,#b8960f);color:#fff;padding:2rem;border-radius:8px;text-align:center}
+.about-highlight .big{font-size:2.2rem}
+
+/* Rates (single definition) */
+.rates-section{background:#fdfbf7;border-left:5px solid #d4af37}
+.rates-container{max-width:600px;margin:0 auto}
+.rates-subtitle{text-align:center;color:#555;font-size:.95rem;margin:-1rem 0 1.5rem}
+.rate-card{background:#fff;border:1px solid #e2d1a6;border-left:5px solid #d4af37;border-radius:8px;padding:15px 20px;margin-bottom:15px;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+.rate-card-header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.rate-card-header h3{margin:0;font-size:1.1rem;color:#222}
+.purity-tag{background:#fff8e7;color:#6b4f10;font-size:.75rem;padding:3px 8px;border-radius:12px;border:1px solid #e2d1a6;font-weight:600}
+.rate-value{font-size:1.3rem;font-weight:800;color:#111;margin-top:6px}
+.update-timestamp{text-align:center;font-size:.85rem;color:#555;margin-top:15px}
+
+/* Products */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:1.5rem}
+.product-card{background:#fff;padding:1.8rem;border-radius:8px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,.1);border-top:4px solid #d4af37}
+.product-card img{width:100%;height:180px;object-fit:cover;border-radius:6px;margin-bottom:1rem}
+.product-icon{font-size:3rem;margin-bottom:.8rem}
+
+/* Contact */
+.contact-content{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.contact-info{background:#f8f8f8;padding:2rem;border-radius:8px;border-left:5px solid #d4af37}
+.contact-info h3{margin-top:1.2rem}
+.contact-info h3:first-child{margin-top:0}
+.address-box{background:#fff;padding:1.2rem;border-radius:5px;margin:.8rem 0;border-left:4px solid #d4af37}
+.address-box a{color:#6b4f10;font-weight:bold;text-decoration:none}
+.form-group{margin-bottom:1.3rem}
+.form-group label{display:block;margin-bottom:.4rem;font-weight:500}
+.form-group input,.form-group textarea{width:100%;padding:10px;border:1px solid #bbb;border-radius:5px;font-family:inherit;font-size:1rem}
+.form-group textarea{resize:vertical;min-height:120px}
+.submit-btn{background:#8b6b23;color:#fff;padding:12px 30px;border:none;border-radius:5px;font-size:1rem;font-weight:bold;cursor:pointer;width:100%}
+.submit-btn:hover{background:#6b4f10}
+.submit-btn:disabled{opacity:.6;cursor:wait}
+#form-status{margin-top:1rem;font-weight:600}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:1rem}
+.gallery-grid figure{border-radius:8px;overflow:hidden;box-shadow:0 4px 8px rgba(0,0,0,.12)}
+.gallery-grid img{width:100%;height:220px;object-fit:cover;display:block}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:1.5rem}
+.reviews-grid blockquote{background:#fff;padding:1.5rem;border-radius:8px;border-left:5px solid #d4af37;box-shadow:0 4px 6px rgba(0,0,0,.08)}
+.reviews-grid blockquote p{margin-bottom:.8rem;font-style:italic}
+.reviews-grid cite{font-weight:600;color:#6b4f10;font-size:.9rem;font-style:normal}
+.map-frame{width:100%;height:300px;border:0;border-radius:8px;margin-top:2rem}
+footer{background:#333;color:#fff;text-align:center;padding:2rem;margin-top:2rem}
+footer p{margin-bottom:.5rem}
+
+@media (max-width:768px){
+  .hero h1{font-size:2rem}
+  .hero p{font-size:1rem}
+  .about-content,.contact-content{grid-template-columns:1fr}
+  h2{font-size:1.7rem}
+  .header-content{justify-content:center;text-align:center}
+  nav ul{gap:1rem;justify-content:center}
+  .float-btn{right:15px;width:52px;height:52px;font-size:1.5rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
 </head>
 <body>
-    <!-- Floating Call Button -->
-    <a href="tel:+919415107000" class="floating-call" title="Call Now">
-        <i class="fas fa-phone"></i>
-    </a>
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">✨ Maa Ichhapurni Jewellers<br><span style="font-size: 0.8rem;">Since 1980</span></div>
-                <div class="header-contact">
-                    <div class="header-phone">
-                        <i class="fas fa-phone"></i>
-                        <a href="tel:+919415107000">9415107000</a>
-                    </div>
-                    <a href="tel:+919415107000" class="call-button">
-                        <i class="fas fa-phone"></i> Call Now
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+<a href="https://wa.me/919839056606?text=Hello%2C%20I%20want%20to%20know%20about%20jewellery" class="float-btn floating-wa" aria-label="Chat on WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+<a href="tel:+919839056606" class="float-btn floating-call" aria-label="Call now"><i class="fas fa-phone" aria-hidden="true"></i></a>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <h1>Maa Ichhapurni Jewellers</h1>
-        <p class="hero-subtitle">Trusted Since 1980</p>
-        <p>Timeless Elegance & Authentic Jewelry</p>
-        <div class="cta-buttons">
-            <a href="#rates" class="cta-button">View Live Rates</a>
-            <a href="tel:+919415107000" class="cta-button">Call Now</a>
-            <a href="#contact" class="cta-button">Contact Us</a>
-        </div>
-    </section>
+<header>
+  <div class="container header-content">
+    <div class="logo">✨ Maa Ichhapurni Jewellers<br><small>Since 1980</small></div>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#rates">Rates</a></li>
+        <li><a href="#products">Collections</a></li>
+        <li><a href="#gallery" id="nav-gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="tel:+919839056606" class="call-button"><i class="fas fa-phone" aria-hidden="true"></i> 9839056606</a>
+  </div>
+</header>
 
-    <!-- About Section -->
-    <section id="about" class="container">
-        <h2>About Us</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p><strong>Maa Ichhapurni Jewellers</strong> has been serving the people of Pihani, Hardoi with exceptional jewelry since <strong>1980</strong>.</p>
-                <p>With over 40 years of expertise and dedication, we've built a reputation for quality, authenticity, and fair pricing.</p>
-                <p>"Located near <strong>Maa Ichhapurni Mandir</strong>, our store is easily accessible, bringing you timeless elegance with guaranteed purity". </p>
-                <p>Whether you're looking for traditional designs, modern styles, or custom creations, we have something perfect for everyone.</p>
-                <p>Our commitment to excellence, transparency, and customer satisfaction is what sets us apart.</p>
-            </div>
-            <div class="about-highlight">
-                <p>💎</p>
-                <p><strong>43+ Years</strong></p>
-                <p>of Excellence in Jewelry</p>
-                <p style="margin-top: 2rem; font-size: 2rem;">🏆</p>
-                <p><strong>Trusted by Thousands</strong></p>
-                <p>in Pihani & Surrounding Areas</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Live Rates Section -->
-  <!-- Live Rates Section -->
-<section id="rates" class="rates-section">
-  <div class="rates-container">
-    <h2 class="rates-title">Live Gold & Silver Rates (GST Included)</h2>
-    <p class="rates-subtitle">Real time gold and silver rates </p>
-
-    <!-- 24K Gold -->
-    <div class="rate-card">
-      <div class="rate-card-header">
-        <h3>GOLD 999 (24K)</h3>
-        <span class="purity-tag">99.9% Pure</span>
-      </div>
-      <div class="rate-card-body">
-        <input type="text" id="gold-24k" value="Fetching rate..." readonly>
-      </div>
-    </div>
-
-    <!-- 22K Gold -->
-    <div class="rate-card">
-      <div class="rate-card-header">
-        <h3>GOLD 916 (22K)</h3>
-        <span class="purity-tag">Standard Jewellery</span>
-      </div>
-      <div class="rate-card-body">
-        <input type="text" id="gold-22k" value="Fetching rate..." readonly>
-      </div>
-    </div>
-
-    <!-- 18K Gold -->
-    <div class="rate-card">
-      <div class="rate-card-header">
-        <h3>GOLD 750 (18K)</h3>
-        <span class="purity-tag">Standard Jewellery</span>
-      </div>
-      <div class="rate-card-body">
-        <input type="text" id="gold-18k" value="Fetching rate..." readonly>
-      </div>
-    </div>
-
-    <!-- Silver -->
-    <div class="rate-card">
-      <div class="rate-card-header">
-        <h3>SILVER 999</h3>
-        <span class="purity-tag">Per 1 Kg</span>
-      </div>
-      <div class="rate-card-body">
-        <input type="text" id="silver-999" value="Fetching rate..." readonly>
-      </div>
-    </div>
-
-    <p id="rates-last-updated" class="update-timestamp">Status: Loading market data...</p>
+<section class="hero" id="home">
+  <h1>Maa Ichhapurni Jewellers</h1>
+  <p>Trusted Since 1980</p>
+  <p>Timeless Elegance &amp; Authentic Jewellery</p>
+  <div class="cta-buttons">
+    <a href="#rates" class="cta-button">View Rates</a>
+    <a href="tel:+919839056606" class="cta-button">Call Now</a>
+    <a href="https://wa.me/919839056606" class="cta-button" target="_blank" rel="noopener">WhatsApp</a>
   </div>
 </section>
 
-<!-- Beautiful Custom Card Styling -->
-<style>
-  .rates-section {
-    padding: 30px 15px;
-    background-color: #fdfbf7;
-  }
-  .rates-container {
-    max-width: 600px;
-    margin: 0 auto;
-    font-family: 'Segoe UI', Roboto, sans-serif;
-  }
-  .rates-title {
-    text-align: center;
-    color: #8b6b23;
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-    font-weight: 700;
-  }
-  .rates-subtitle {
-    text-align: center;
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 25px;
-  }
-  .rate-card {
-    background: #ffffff;
-    border: 1px solid #e2d1a6;
-    border-left: 5px solid #d4af37;
-    border-radius: 8px;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .rate-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .rate-card-header h3 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #222;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-  }
-  .purity-tag {
-    background: #fff8e7;
-    color: #8b6b23;
-    font-size: 0.75rem;
-    padding: 3px 8px;
-    border-radius: 12px;
-    border: 1px solid #e2d1a6;
-    font-weight: 600;
-  }
-  .rate-card-body input {
-    width: 100%;
-    border: none;
-    background: transparent;
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #111;
-    outline: none;
-    padding: 0;
-  }
-  .update-timestamp {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #777;
-    margin-top: 15px;
-  }
-</style>
-       
-    <!-- Products Section -->
-    <section id="products" class="alt">
-        <div class="container">
-            <h2>Our Collections</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-icon">💍</div>
-                    <h3>Gold Jewelry</h3>
-                    <p>Exquisite 18K, 22K gold ornaments including rings, bangles, and necklaces.</p>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">👑</div>
-                    <h3>Traditional Designs</h3>
-                    <p>Classic jewelry designs celebrating cultural heritage and timeless elegance.</p>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">✨</div>
-                    <h3>Silver Jewelry</h3>
-                    <p>Beautiful sterling silver pieces combining affordability with style.</p>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">🎁</div>
-                    <h3>Custom Designs</h3>
-                    <p> Jewellery bought to life as per your unique designs and choices.</p>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">⭐</div>
-                    <h3>Wedding Collection</h3>
-                    <p>Magnificent bridal jewelry for your most precious moments.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="about" class="block">
+  <h2>About Us</h2>
+  <div class="about-content">
+    <div class="about-text">
+      <p><strong>Maa Ichhapurni Jewellers</strong> has been serving the people of Pihani, Hardoi with exceptional jewellery since <strong>1980</strong>.</p>
+      <p>With over 40 years of expertise and dedication, we have built a reputation for quality, authenticity and fair pricing.</p>
+      <p>Located near <strong>Maa Ichhapurni Mandir</strong>, our store is easily accessible, bringing you timeless elegance with guaranteed purity.</p>
+      <p>Whether you are looking for traditional designs, modern styles or custom creations, we have something perfect for everyone.</p>
+      <p>Our commitment to excellence, transparency and customer satisfaction is what sets us apart.</p>
+    </div>
+    <div class="about-highlight">
+      <p class="big" aria-hidden="true">💎</p>
+      <p><strong><span id="years">45</span>+ Years</strong></p>
+      <p>of Excellence in Jewellery</p>
+      <p class="big" style="margin-top:1.5rem" aria-hidden="true">🏆</p>
+      <p><strong>Trusted in Pihani</strong></p>
+      <p>and Surrounding Areas</p>
+    </div>
+  </div>
+</section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="container">
-        <h2>Get In Touch</h2>
-        <div class="contact-content">
-            <div>
-                <h3>📧 Contact Form</h3>
-              <form action="https://formspree.io/f/mbglnnjj" method="POST">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-            <div class="contact-info">
-                <h3>📍 Location & Details</h3>
-                <div class="address-box">
-                    <p><strong>Maa Ichhapurni Jewellers</strong></p>
-                    <p>Near Maa Ichhapurni Mandir</p>
-                    <p>Pihani, Hardoi</p>
-                    <p>Uttar Pradesh 241406, India</p>
-                </div>
+<section id="rates" class="block rates-section">
+  <div class="rates-container">
+    <h2>Gold &amp; Silver Rates</h2>
+    <p class="rates-subtitle">Indicative rates. Please call to confirm today's price.</p>
 
-                <h3>📞 Contact Information</h3>
-                <div class="address-box">
-                    <p><strong>Phone:</strong> <a href="tel:+919415107000" style="color: #d4af37; text-decoration: none; font-weight: bold;">9415107000</a></p>
-                </div>
+    <div class="rate-card">
+      <div class="rate-card-header"><h3>GOLD 999 (24K)</h3><span class="purity-tag">99.9% Pure</span></div>
+      <div class="rate-value" id="gold-24k">Loading...</div>
+    </div>
+    <div class="rate-card">
+      <div class="rate-card-header"><h3>GOLD 916 (22K)</h3><span class="purity-tag">Hallmark Jewellery</span></div>
+      <div class="rate-value" id="gold-22k">Loading...</div>
+    </div>
+    <div class="rate-card">
+      <div class="rate-card-header"><h3>GOLD 750 (18K)</h3><span class="purity-tag">Hallmark Jewellery</span></div>
+      <div class="rate-value" id="gold-18k">Loading...</div>
+    </div>
+    <div class="rate-card">
+      <div class="rate-card-header"><h3>SILVER 999</h3><span class="purity-tag">Per 1 Kg</span></div>
+      <div class="rate-value" id="silver-999">Loading...</div>
+    </div>
+    <p id="rates-last-updated" class="update-timestamp" aria-live="polite">Loading rates...</p>
+  </div>
+</section>
 
-                <h3>🕐 Business Hours</h3>
-                <div class="address-box">
-                    <p><strong>Saturday - Thursday:</strong><br>10:00 AM - 7:30 PM</p>
-                    <p><strong>Friday:</strong><br>Closed</p>
-                </div>
+<section id="products" class="block alt">
+  <h2>Our Collections</h2>
+  <div class="products-grid">
+    <!-- Photo lagane ke liye emoji wali line hata kar yeh use karo:
+         <img src="images/gold.jpg" alt="Gold necklace" loading="lazy" width="400" height="300"> -->
+    <div class="product-card"><div class="product-icon" aria-hidden="true">💍</div><h3>Gold Jewellery</h3><p>Exquisite 18K and 22K gold ornaments including rings, bangles and necklaces.</p></div>
+    <div class="product-card"><div class="product-icon" aria-hidden="true">👑</div><h3>Traditional Designs</h3><p>Classic jewellery designs celebrating cultural heritage and timeless elegance.</p></div>
+    <div class="product-card"><div class="product-icon" aria-hidden="true">✨</div><h3>Silver Jewellery</h3><p>Beautiful silver pieces combining affordability with style.</p></div>
+    <div class="product-card"><div class="product-icon" aria-hidden="true">🎁</div><h3>Custom Designs</h3><p>Jewellery brought to life as per your unique designs and choices.</p></div>
+    <div class="product-card"><div class="product-icon" aria-hidden="true">⭐</div><h3>Wedding Collection</h3><p>Magnificent bridal jewellery for your most precious moments.</p></div>
+  </div>
+</section>
 
-                <h3>💼 Our Services</h3>
-                <div class="address-box">
-                    <p>✓ 100% BIS Hallmarked Jewellery</p>
-                    <p>✓ Custom Design & Personalised order</p>
-                    <p>✓ Jewelry Repair & Maintenance</p>
-                    <p>✓ Certified Authenticity</p>
-                    <p>✓ Purity testing & Gold Valuation</p>
-                    <p>✓ Fair Pricing & Transparent Rates</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="gallery" class="block">
+  <h2>Our Work</h2>
+  <div class="gallery-grid">
+    <figure><img src="images/1.jpg" alt="Gold necklace set" loading="lazy" width="400" height="300"></figure>
+    <figure><img src="images/2.jpg" alt="Gold bangles" loading="lazy" width="400" height="300"></figure>
+    <figure><img src="images/3.jpg" alt="Bridal jewellery" loading="lazy" width="400" height="300"></figure>
+    <figure><img src="images/4.jpg" alt="Silver jewellery" loading="lazy" width="400" height="300"></figure>
+    <figure><img src="images/5.jpg" alt="Gold rings" loading="lazy" width="400" height="300"></figure>
+    <figure><img src="images/6.jpg" alt="Our shop in Pihani" loading="lazy" width="400" height="300"></figure>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-     <p>Pihani, Hardoi | Trusted Since 1980</p>
-        <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.8;">Crafting Beauty, Creating Memories</p>
-        <p>© <span id="current-year"></span> Maa Ichhapurni Jewellers. All Rights Reserved.</p>
+<!-- REVIEWS: asli Google reviews milne par yeh comment hata kar apne reviews likho
+<section id="reviews" class="block alt">
+  <h2>What Customers Say</h2>
+  <div class="reviews-grid">
+    <blockquote><p>ASLI REVIEW YAHAN</p>Customer ka naam, Pihani</blockquote>
+    <blockquote><p>ASLI REVIEW YAHAN</p>Customer ka naam, Hardoi</blockquote>
+  </div>
+</section>
+-->
+
+<section id="contact" class="block">
+  <h2>Get In Touch</h2>
+  <div class="contact-content">
+    <div>
+      <h3>📧 Send a Message</h3>
+      <form id="contact-form" action="https://formspree.io/f/mbglnnjj" method="POST">
+        <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name" autocomplete="name" required></div>
+        <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" autocomplete="tel" pattern="[0-9+ ]{10,14}" required></div>
+        <div class="form-group"><label for="email">Email (optional)</label><input type="email" id="email" name="email" autocomplete="email"></div>
+        <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" required></textarea></div>
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <button type="submit" class="submit-btn" id="submit-btn">Send Message</button>
+        <p id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="contact-info">
+      <h3>📍 Location</h3>
+      <div class="address-box">
+        <p><strong>Maa Ichhapurni Jewellers</strong></p>
+        <p>Near Maa Ichhapurni Mandir</p>
+        <p>Pihani, Hardoi</p>
+        <p>Uttar Pradesh 241406, India</p>
+        <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Maa+Ichhapurni+Jewellers+Pihani+Hardoi" target="_blank" rel="noopener">Get directions</a></p>
+      </div>
+      <h3>📞 Phone</h3>
+      <div class="address-box"><p><a href="tel:+919839056606">9839056606</a></p></div>
+      <h3>🕐 Business Hours</h3>
+      <div class="address-box">
+        <p><strong>Saturday - Thursday:</strong><br>10:00 AM - 7:30 PM</p>
+        <p><strong>Friday:</strong> Closed</p>
+      </div>
+      <h3>💼 Our Services</h3>
+      <div class="address-box">
+        <p>✓ BIS Hallmarked Jewellery</p>
+        <p>✓ Custom Design &amp; Personalised Orders</p>
+        <p>✓ Jewellery Repair &amp; Maintenance</p>
+        <p>✓ Certified Authenticity</p>
+        <p>✓ Purity Testing &amp; Gold Valuation</p>
+        <p>✓ Fair Pricing &amp; Transparent Rates</p>
+      </div>
+    </div>
+  </div>
+  <iframe class="map-frame" title="Shop location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    src="https://www.google.com/maps?q=Maa+Ichhapurni+Jewellers+Pihani+Hardoi&amp;output=embed"></iframe>
+</section>
+
+<footer>
+  <p>Pihani, Hardoi | Trusted Since 1980</p>
+  <p style="font-size:.9rem;opacity:.8">Crafting Beauty, Creating Memories</p>
+  <p>&copy; <span id="current-year"></span> Maa Ichhapurni Jewellers. All Rights Reserved.</p>
+</footer>
 
 <script>
-  document.getElementById("current-year").textContent = new Date().getFullYear();
+  var y = new Date().getFullYear();
+  document.getElementById('current-year').textContent = y;
+  document.getElementById('years').textContent = y - 1980;
+
+  // Jo photo nahi mili use hatao; koi photo na ho to gallery chhupa do
+  var gal = document.getElementById('gallery');
+  var imgs = gal.querySelectorAll('img'), left = imgs.length;
+  function gone(img) {
+    var f = img.closest('figure'); if (f) f.remove();
+    if (--left <= 0) { gal.remove(); var n = document.getElementById('nav-gallery'); if (n) n.parentNode.remove(); }
+  }
+  imgs.forEach(function (img) {
+    if (img.complete && img.naturalWidth === 0) gone(img);
+    else img.addEventListener('error', function () { gone(img); });
+  });
+
+  // Contact form: stay on page, show status
+  document.getElementById('contact-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var f = e.target, btn = document.getElementById('submit-btn'), st = document.getElementById('form-status');
+    btn.disabled = true; st.textContent = 'Sending...';
+    try {
+      var r = await fetch(f.action, { method: 'POST', body: new FormData(f), headers: { Accept: 'application/json' } });
+      if (!r.ok) throw new Error('fail');
+      st.textContent = 'Thank you! We will contact you soon.';
+      f.reset();
+    } catch (err) {
+      st.textContent = 'Could not send. Please call 9839056606.';
+    }
+    btn.disabled = false;
+  });
 </script>
-       
-    </footer>
-
-    <script>
-        // Rates functionality
-        const goldRateInput = document.getElementById('gold-rate');
-        const silverRateInput = document.getElementById('silver-rate');
-        const goldTimeSpan = document.getElementById('gold-time');
-        const silverTimeSpan = document.getElementById('silver-time');
-
-        // Load rates from localStorage
-        window.addEventListener('load', function() {
-            const savedGoldRate = localStorage.getItem('goldRate');
-            const savedSilverRate = localStorage.getItem('silverRate');
-            const savedGoldTime = localStorage.getItem('goldTime');
-            const savedSilverTime = localStorage.getItem('silverTime');
-
-            if (savedGoldRate) {
-                goldRateInput.value = savedGoldRate;
-                goldTimeSpan.textContent = savedGoldTime || 'just now';
-            }
-            if (savedSilverRate) {
-                silverRateInput.value = savedSilverRate;
-                silverTimeSpan.textContent = savedSilverTime || 'just now';
-            }
-        });
-
-        // Save rates safely without errors
-if (typeof goldRateInput !== 'undefined' && goldRateInput) {
-  goldRateInput.addEventListener('change', function() {
-    localStorage.setItem('goldRate', this.value);
-  });
-}
-
-if (typeof silverRateInput !== 'undefined' && silverRateInput) {
-  silverRateInput.addEventListener('change', function() {
-    localStorage.setItem('silverRate', this.value);
-  });
-}
-
-        // Form submission
-        function handleSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            
-            alert(`Thank you, ${name}! We will contact you at ${phone} soon.`);
-            document.querySelector('form').reset();
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
-    <script src="rates.js"></script>
+<script src="rates.js"></script>
 </body>
 </html>
